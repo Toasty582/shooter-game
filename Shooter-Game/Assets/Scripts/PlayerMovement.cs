@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 
     float forceApplied = 500f;
     float topSpeed = 4f;
-    public float jumpPower;
 
     float distToGround;
 
@@ -43,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context) {
         if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f)) {
-            playerRigid.AddForce(Vector3.up * jumpPower);
+            playerRigid.AddForce(Vector3.up * 250f);
         }
     }
 }

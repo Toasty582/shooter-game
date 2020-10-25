@@ -8,8 +8,8 @@ public class PlayerCameraBehavior : MonoBehaviour
 
     public float sensitivity;
 
-    float xSpeed; // Change rotation.y
-    float ySpeed; // Change rotation.z
+    float xSpeed;
+    float ySpeed;
 
     void Update()
     {
