@@ -5,10 +5,20 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody playerRigid;
     public GameObject playerLook;
-    public float forceApplied;
-    public float topSpeed;
+    GameObject player;
+
+    float forceApplied = 500f;
+    float topSpeed = 4f;
+    public float jumpPower;
+
+    float distToGround;
 
     Vector2 direction;
+
+    private void Start() {
+        player = playerRigid.gameObject;
+        distToGround = player.GetComponent<BoxCollider>().bounds.extents.y;
+    }
 
     private void Update() {
         playerLook.transform.position = playerRigid.gameObject.transform.position + new Vector3(0f, 1f, 0f);
@@ -29,5 +39,11 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Move(InputAction.CallbackContext context) {
         direction = context.ReadValue<Vector2>();
+    }
+
+    public void Jump(InputAction.CallbackContext context) {
+        if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f)) {
+            playerRigid.AddForce(Vector3.up * jumpPower);
+        }
     }
 }
