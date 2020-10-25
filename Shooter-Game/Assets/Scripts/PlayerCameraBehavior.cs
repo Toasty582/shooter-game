@@ -1,14 +1,29 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCameraBehavior : MonoBehaviour
 {
     public Camera playerCamera;
-    public GameObject player;
-    Vector3 cameraOffset = new Vector3(0f, 0.5f, 0f);
+    public GameObject playerLook;
 
-    // Update is called once per frame
+    public float sensitivity;
+
+    float xSpeed; // Change rotation.y
+    float ySpeed; // Change rotation.z
+
     void Update()
     {
-        playerCamera.transform.position = player.transform.position + cameraOffset;
+        playerCamera.transform.position = playerLook.transform.position;
+        playerCamera.transform.rotation = playerLook.transform.rotation;
+    }
+
+    private void FixedUpdate() {
+        playerLook.transform.Rotate(Vector3.up, xSpeed * sensitivity * Time.fixedDeltaTime, Space.World);
+        playerLook.transform.Rotate(Vector3.left, ySpeed * sensitivity * Time.fixedDeltaTime, Space.Self);
+    }
+
+    public void Look(InputAction.CallbackContext context) {
+        xSpeed = context.ReadValue<Vector2>().x;
+        ySpeed = context.ReadValue<Vector2>().y;
     }
 }
