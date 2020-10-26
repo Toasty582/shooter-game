@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int amount) {
         health -= amount;
-        healthBar.value = health / 100;
+        healthBar.value = health;
         healthText.text = health + " / 100";
     }
 

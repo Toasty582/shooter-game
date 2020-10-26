@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Player;
 
-public class UseLogic : MonoBehaviour
+public class UseHealthTest : MonoBehaviour
 {
     private void OnEnable() {
         EventHandler.OnUse += Use;
@@ -17,6 +18,11 @@ public class UseLogic : MonoBehaviour
         if (gameObject == target) {
             // log that the object has been used
             Debug.Log(gameObject.name + " has been used!");
+            UseObject();
         }
+    }
+
+    void UseObject() {
+        player.TakeDamage(10);
     }
 }
