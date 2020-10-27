@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Player;
 
-public class UseHealthTest : MonoBehaviour
+public class UseTemplate : MonoBehaviour
 {
     private void OnEnable() {
         EventHandler.OnUse += Use;
@@ -23,6 +22,6 @@ public class UseHealthTest : MonoBehaviour
     }
 
     void UseObject() {
-        player.TakeDamage(10);
+
     }
 }

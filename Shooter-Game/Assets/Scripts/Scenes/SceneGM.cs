@@ -13,15 +13,29 @@ public class SceneGM : MonoBehaviour
     }
 
     IEnumerator LoadAsynchronously(int sceneIndex) {
+        loadingScreen = GameObject.Find("LoadingScreen");
+        loadingSlider = GameObject.Find("LoadingBar").GetComponent<Slider>();
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
         loadingScreen.SetActive(true);
-        GameObject.Find("Player").GetComponent<Player>().sceneIndex = sceneIndex;
+        if (GameObject.Find("Player").GetComponent<Player>() != null) {
+            GameObject.Find("Player").GetComponent<Player>().sceneIndex = sceneIndex;
+            GameObject.Find("Player").GetComponent<Player>().SavePlayer();
+        } else {
+            Debug.LogError("Player not found");
+        }
+        
 
         while (!operation.isDone) {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
             loadingSlider.value = progress;
             yield return null;
+        }
+        if (GameObject.Find("Player").GetComponent<Player>() != null) {
+            GameObject.Find("Player").GetComponent<Player>().LoadPlayer();
+        } else {
+            Debug.LogError("Player not found");
         }
     }
 }
